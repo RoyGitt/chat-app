@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const connectDb = async () => {
+  const connectionString = process.env.MONGO_URI;
+
   try {
-    const connectionString = await mongoose.connect(
-      "mongodb+srv://roy:roy@cluster0.2bjrvgu.mongodb.net/chat-app?retryWrites=true&w=majority"
-    );
-    console.log(`MONGO CONNECTED ${connectionString.connection.host}`);
+    const conn = await mongoose.connect(connectionString);
+    console.log(`MONGO CONNECTED ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
     process.exit(1);
