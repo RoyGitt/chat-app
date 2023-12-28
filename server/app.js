@@ -6,7 +6,6 @@ import connectDb from "./config/db.js";
 dotenv.config();
 
 connectDb();
-
 const app = express();
 
 app.get("/api", (req, res) => {
