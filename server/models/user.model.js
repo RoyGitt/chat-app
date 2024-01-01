@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    name: { type: "String", required: true },
+    username: { type: "String", required: true },
     email: { type: "String", unique: true, required: true },
     password: { type: "String", required: true },
     pic: {
@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema(
       default: false,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);
