@@ -10,8 +10,8 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
-import SignUp from "../componets/SignUp";
-import SignIn from "../componets/SignIn";
+import SignUp from "../components/SignIn";
+import SignIn from "../components/SignUp";
 
 const HomePage = () => {
   return (
@@ -31,19 +31,15 @@ const HomePage = () => {
       <Box>
         <Tabs>
           <TabList>
-            <Tab>Sign Up</Tab>
             <Tab>Sign In</Tab>
+            <Tab>Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <p>
-                <SignUp />
-              </p>
+              <SignUp />
             </TabPanel>
             <TabPanel>
-              <p>
-                <SignIn />
-              </p>
+              <SignIn />
             </TabPanel>
           </TabPanels>
         </Tabs>

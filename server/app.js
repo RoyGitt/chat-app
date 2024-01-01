@@ -14,10 +14,12 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
 });
+app.use(express.json());
 
 app.get("/api", (req, res) => {
   res.status(200).json({ message: "test" });
 });
+app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -28,6 +30,3 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-app.use(express.json());
-app.use("/api/auth", authRouter);
