@@ -55,9 +55,7 @@ const Register = () => {
     if (data?.success === false) {
       toast.error(data.message, toastOptions);
     }
-
-    localStorage.setItem("user", data);
-    navigate("/");
+    navigate("/login");
   };
 
   const handleChange = (e) => {
