@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./config/db.js";
-
+import cors from "cors";
 import authRouter from "./routes/auth.route.js";
 
 dotenv.config();
@@ -15,6 +15,7 @@ app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
 });
 app.use(express.json());
+app.use(cors());
 
 app.get("/api", (req, res) => {
   res.status(200).json({ message: "test" });

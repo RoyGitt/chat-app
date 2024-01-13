@@ -13,17 +13,30 @@ export const handleSignUp = async (req, res, next) => {
   }
 
   try {
+    const existingUsername = await User.findOne({ username });
+
+    if (existingUsername) {
+      return next(errorHander(409, "Username already taken 🥲"));
+    }
+
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return next(409, "User already exits with the provided information");
+      return next(
+        errorHander(409, "An account already exists with the provided email id")
+      );
     }
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const newUser = await User({ username, email, password: hashedPassword });
-    await newUser.save();
-    const { password: pass, ...rest } = newUser._doc;
-    res.status(201).json(rest);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      email,
+      username,
+      password: hashedPassword,
+    });
+
+    const { password: pass, ...modifiedUser } = newUser._doc;
+
+    res.status(201).json(modifiedUser);
   } catch (error) {
     next(error);
   }

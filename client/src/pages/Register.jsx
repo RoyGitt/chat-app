@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/logo.svg";
 import { useState } from "react";
+import axios from "axios";
+import { registerRoute } from "../utils/ApiRoutes";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const toastOptions = {
     position: "top-right",
@@ -41,6 +44,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleValidations();
+    const { username, email, password } = formData;
+
+    const { data } = await axios.post(registerRoute, {
+      username,
+      email,
+      password,
+    });
+
+    if (data?.success === false) {
+      toast.error(data.message, toastOptions);
+    }
+
+    localStorage.setItem("user", data);
+    navigate("/");
   };
 
   const handleChange = (e) => {
